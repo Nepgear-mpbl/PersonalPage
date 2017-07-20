@@ -54,4 +54,13 @@ public abstract class BaseComment<M extends BaseComment<M>> extends Model<M> imp
 		return get("comment_name");
 	}
 
+	public M setParent(java.lang.Integer parent) {
+		set("parent", parent);
+		return (M)this;
+	}
+
+	public java.lang.Integer getParent() {
+		return get("parent");
+	}
+
 }

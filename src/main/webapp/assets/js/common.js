@@ -4,8 +4,9 @@ $(document).ready(function () {
             relatedTarget: this,
             dimmer:false,
             onConfirm: function (e) {
+                var postData={"name":e.data};
                 if (e.data !== '') {
-                    $.post('guest/' + e.data.toString(), {}, function (retJson) {
+                    $.post('/guest', postData, function (retJson) {
                         if (retJson.status) {
                             location.reload();
                         } else {

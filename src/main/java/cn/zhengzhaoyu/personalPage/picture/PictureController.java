@@ -48,7 +48,7 @@ public class PictureController extends BaseController {
         if(null==picture){
             renderError(404);
         }
-        List<Record>commentList=cs.getCommentsByType(0);
+        List<Record>commentList=cs.getCommentsByTypeAndParent(0,picId);
         setAttr("commentList", commentList);
         setAttr("picture", picture);
         render("picInfo.html");

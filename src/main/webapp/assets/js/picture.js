@@ -22,7 +22,7 @@ $(document).ready(function () {
             alert("input introduction");
             return;
         }
-        var formData = new FormData($('#img-upload-form')[0]);
+        var formData = new FormData($('#img-upload-form'));
         console.log(formData);
         $.ajax({
             url: '/picture/uploadPicture',

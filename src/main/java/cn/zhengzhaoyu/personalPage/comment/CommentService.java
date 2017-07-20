@@ -18,9 +18,9 @@ public class CommentService {
     public static final CommentService me = new CommentService();
     private static final Comment commentDao = new Comment().dao();
 
-    public Ret addComment(String commentName, String commentText, int type) {
+    public Ret addComment(String commentName, String commentText, int type,int parentId) {
         Comment comment = new Comment();
-        comment.setCommentName(commentName).setCommentText(commentText).setType(type);
+        comment.setCommentName(commentName).setCommentText(commentText).setType(type).setParent(parentId);
         if (comment.save()) {
             return Ret.by("status", true).set("message", "上传成功");
         } else {
@@ -28,7 +28,7 @@ public class CommentService {
         }
     }
 
-    public List<Record> getCommentsByType(int type) {
-        return Db.find(commentDao.getSqlPara("comment.getByType", type));
+    public List<Record> getCommentsByTypeAndParent(int type,int parentId) {
+        return Db.find(commentDao.getSqlPara("comment.getByTypeAndParent", type,parentId));
     }
 }

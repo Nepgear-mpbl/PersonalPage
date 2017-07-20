@@ -5,9 +5,10 @@ FROM p_comment
 WHERE `id` = #para(0)
 #end
 
-#sql("getByType")
+#sql("getByTypeAndParent")
 SELECT
  *
 FROM p_comment
 WHERE `type` = #para(0)
+and `parent` = #para(1)
 #end

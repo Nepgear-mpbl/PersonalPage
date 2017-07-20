@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-#set(title="图片详情#(picture.id)")
+#set(title="图片详情")
 #set(bgImg="bgImage/bg1.jpg")
 #@layout()
 
 #define body()
+<p id="pic-id" hidden>#(picture.id)</p>
 <div id="pic-detail">
     <div class="am-panel am-panel-default" style="width: 85%;margin: 0 auto">
         <div style="text-align: center;font-size: 150%;">
@@ -25,10 +26,34 @@
     #else
     #end
 </div>
-<div id="add-comment">
+<div id="add-comment" style="width: 85%;margin: auto">
+    <form class="am-form" id="comment-add-form" action="" method="post">
+        <fieldset>
+            <div class="am-form-group">
+                <label for="comment-text">评论</label>
+                <textarea class="" rows="5" id="comment-text" minlength="5" name="commentText" required
+                          placeholder="输入评论（至少 5 个字符）"></textarea>
+            </div>
+            <p>
+                <button type="submit" class="am-btn am-btn-default">提交</button>
+            </p>
+        </fieldset>
+    </form>
+</div>
+<div class="am-modal am-modal-prompt" tabindex="-1" id="comment-name-div">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            不留个名么？
+            <input type="text" class="am-modal-prompt-input">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>不要</span>
+            <span class="am-modal-btn" data-am-modal-confirm>好的</span>
+        </div>
+    </div>
 </div>
 #end
 
 #define js()
-<script src="/assets/js/index.js"></script>
+<script src="/assets/js/picInfo.js"></script>
 #end

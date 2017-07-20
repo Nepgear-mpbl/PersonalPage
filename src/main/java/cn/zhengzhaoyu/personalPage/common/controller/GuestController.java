@@ -20,7 +20,7 @@ public class GuestController extends BaseController{
     private static final LogService ls=new LogService();
     @Before({POST.class})
     public void index() {
-        String guestName=getPara();
+        String guestName=getPara("name");
         String token = StrKit.getRandomUUID();
         HashMap<String,Object> guest=new HashMap<>();
         guest.put("name",guestName);

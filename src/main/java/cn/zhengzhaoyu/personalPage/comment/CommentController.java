@@ -11,10 +11,11 @@ public class CommentController extends BaseController {
 
     @Before({POST.class})
     public void addComment() {
-        int type = getParaToInt();
-        String name = getPara("commentName");
-        String text = getPara("commentText");
+        int type = getParaToInt(0);
+        int parentId = getParaToInt(1);
+        String name = getPara("name");
+        String text = getPara("text");
         ls.addLog("Comment type "+type+" add.", getIp());
-        renderJson();
+        renderJson(cs.addComment(name,text,type,parentId));
     }
 }
