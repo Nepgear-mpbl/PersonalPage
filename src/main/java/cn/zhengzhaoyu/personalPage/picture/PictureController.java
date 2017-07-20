@@ -1,5 +1,6 @@
 package cn.zhengzhaoyu.personalPage.picture;
 
+import cn.zhengzhaoyu.personalPage.comment.CommentService;
 import cn.zhengzhaoyu.personalPage.common.controller.BaseController;
 import cn.zhengzhaoyu.personalPage.common.service.LogService;
 import com.jfinal.aop.Before;
@@ -23,20 +24,34 @@ import java.util.List;
  */
 public class PictureController extends BaseController {
     private static final PictureService ps = new PictureService();
-    LogService ls=new LogService();
+    private static final CommentService cs = new CommentService();
+    private static final LogService ls = new LogService();
 
     @Before({GET.class})
     public void index() {
-        int pageNum=1;
-        if(null !=  getParaToInt()){
-            pageNum=getParaToInt();
+        int pageNum = 1;
+        if (null != getParaToInt()) {
+            pageNum = getParaToInt();
         }
-        Page<Record> picture_0 = ps.getPicturesByType(0,6,pageNum);
-        if(0 == picture_0.getList().size()) {
+        Page<Record> picture_0 = ps.getPicturesByType(0, 6, pageNum);
+        if (0 == picture_0.getList().size()) {
             renderError(404);
         }
         setAttr("picture_0", picture_0);
         render("index.html");
+    }
+
+    @Before({GET.class})
+    public void picInfo() {
+        int picId = getParaToInt("id");
+        Record picture = ps.findPicturesById(picId);
+        if(null==picture){
+            renderError(404);
+        }
+        List<Record>commentList=cs.getCommentsByType(0);
+        setAttr("commentList", commentList);
+        setAttr("picture", picture);
+        render("picInfo.html");
     }
 
     @Before({POST.class})
@@ -52,7 +67,7 @@ public class PictureController extends BaseController {
         String AbsPath = file.getAbsolutePath();
         String path = AbsPath.substring(0, AbsPath.lastIndexOf('\\')) + '\\' + uuid + type;
         if (file.renameTo(new File(path))) {
-            ls.addLog("Picture add.",getIp());
+            ls.addLog("Picture add.", getIp());
             renderJson(ps.addPicture(uuid, type, title, introduction, imgType));
         } else {
             file.delete();

@@ -17,7 +17,7 @@ import java.util.HashMap;
  * @since 1.0
  */
 public class GuestController extends BaseController{
-    LogService ls=new LogService();
+    private static final LogService ls=new LogService();
     @Before({POST.class})
     public void index() {
         String guestName=getPara();

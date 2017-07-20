@@ -87,3 +87,4 @@ fabric.properties
 personalPage.iml
 config-dev.properties
 /target
+/src/main/webapp/fileResource

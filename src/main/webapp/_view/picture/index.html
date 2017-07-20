@@ -13,7 +13,7 @@
         <img class="am-img-responsive" src="/img?fileName=#(pic.path)"/>
         <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
         <div  style="text-align: center;padding-bottom: 20px">
-            <a href="">#(pic.title)</a>
+            <a href="/picture/picInfo?id=#(pic.id)">#(pic.title)</a>
         </div>
     </div>
     #end
@@ -121,11 +121,6 @@
 </div>
 #end
 
-#define css()
-<link rel="stylesheet" href="/assets/css/index.css">
-#end
-
 #define js()
-<script src="/assets/js/index.js"></script>
 <script src="/assets/js/picture.js"></script>
 #end

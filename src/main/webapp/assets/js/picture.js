@@ -25,7 +25,7 @@ $(document).ready(function () {
         var formData = new FormData($('#img-upload-form')[0]);
         console.log(formData);
         $.ajax({
-            url: 'uploadPicture',
+            url: '/picture/uploadPicture',
             type: 'POST',
             xhr: function () {
                 myXhr = $.ajaxSettings.xhr();
