@@ -1,0 +1,55 @@
+<div data-am-sticky>
+    <div class="nav-div">
+        <header class="am-topbar">
+            <h1 class="am-topbar-brand">
+                <a href="/">RainVerse</a>
+            </h1>
+
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                    data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li class="am-active"><a href="#">首页</a></li>
+                    <li><a href="#">随笔</a></li>
+                    <li><a href="#">留言板</a></li>
+                    <li class="am-dropdown" data-am-dropdown>
+                        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                            Vision <span class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li class="am-dropdown-header">只是奇怪的个人喜好</li>
+                            <li><a href="#">音乐</a></li>
+                            <li><a href="/picture">图片</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                #if(guest)
+                <div class="am-topbar-right" id="guest-name-div">
+                    欢迎,#(guest.name)
+                </div>
+                #else
+                <button
+                        type="button"
+                        class="am-btn am-btn-default am-form-inline am-topbar-right am-btn-sm"
+                        id="guset-name-btn">
+                    不妨告诉我你是谁?
+                </button>
+                <div class="am-modal am-modal-prompt" tabindex="-1" id="guest-name-input">
+                    <div class="am-modal-dialog">
+                        <div class="am-modal-bd">
+                            <div class="am-modal-hd">喜欢的id就行</div>
+                            <input type="text" class="am-modal-prompt-input">
+                        </div>
+                        <div class="am-modal-footer">
+                            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                            <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                        </div>
+                    </div>
+                </div>
+                #end
+            </div>
+        </header>
+    </div>
+</div>

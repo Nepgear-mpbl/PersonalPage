@@ -1,0 +1,29 @@
+#define layout()
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
+    <title>#(title)&nbsp;--&nbsp;RainVerse</title>
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    #@css?()
+</head>
+<body>
+#include("nav.html")
+<div class="background-div am-show-md-up" >
+    <img class="background-img" src="/img?fileName=#(bgImg)"/>
+</div>
+<div class="main-body">
+    #@body()
+</div>
+#include("footer.html")
+<script src="/assets/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+#@js?()
+</body>
+</html>
+#end
