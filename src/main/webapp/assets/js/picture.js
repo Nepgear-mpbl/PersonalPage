@@ -11,15 +11,15 @@ $(document).ready(function () {
     });
     $('#img-upload-btn').click(function () {
         if(!isPicSelected){
-            alert("select image");
+            layer.msg("没图？你传什么");
             return;
         }
         if($('#title-input').val()===''){
-            alert("input title");
+            layer.msg("不要忘了标题");
             return;
         }
         if($('#intro-input').val()===''){
-            alert("input introduction");
+            layer.msg("不要忘了简介");
             return;
         }
         var formData = new FormData($('#img-upload-form'));
@@ -39,17 +39,11 @@ $(document).ready(function () {
             },
             success: function (retJson) {
                 $('progress').hide();
-                $('#img-upload-btn').popover({
-                    content: retJson.message.toString()
-                }).popover('open');
-                setTimeout(function(){
-                    $('#img-upload-btn').popover('close');
-                    location.reload();
-                },1000);
+                layer.msg(retJson.message.toString());
             },
             error: function () {
                 $('progress').hide();
-                alert("fail");
+                layer.msg("上传失败");
             },
             data: formData,
             cache: false,

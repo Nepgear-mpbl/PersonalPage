@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('#comment-add-form').submit(function (e) {
         e.preventDefault();
         var data = $("#comment-add-form").serializeArray()[0];
-        var formData={text:data.value};
+        var formData = {text: data.value};
         console.log(formData);
         var guestName = $('#guest-name').text();
         if (guestName !== '') {
@@ -30,13 +30,14 @@ $(document).ready(function () {
             });
         }
     });
+
     function sendRequest(postData) {
-        $.post('/comment/addComment/0-'+$('#pic-id').text(), postData, function (retJson) {
+        $.post('/comment/addComment/0-' + $('#pic-id').text(), postData, function (retJson) {
             if (retJson.status) {
-                alert("success!");
+                layer.msg("评论成功");
                 location.reload();
             } else {
-                alert("Unknown Error!");
+                layer.msg("未知错误");
             }
         });
     }
