@@ -37,7 +37,7 @@ $(document).ready(function () {
                 layer.msg("评论成功");
                 location.reload();
             } else {
-                layer.msg("未知错误");
+                layer.msg(retJson.message);
             }
         });
     }
