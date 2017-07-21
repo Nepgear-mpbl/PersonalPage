@@ -6,7 +6,7 @@
 #define body()
 <p id="pic-id" hidden>#(picture.id)</p>
 <div id="pic-detail">
-    <div class="am-panel am-panel-default" style="width: 85%;margin: 0 auto">
+    <div class="am-panel am-panel-default" style="width: 90%;margin: 0 auto">
         <div style="text-align: center;font-size: 150%;">
             <p style="font-weight: bold">#(picture.title)</p>
             <p style="font-size: 60%;color: #aaaaaa">上传于#(picture.upload_time)</p>
@@ -22,15 +22,32 @@
 </div>
 <div id="comment">
     #if(!commentList)
-    <div>没有评论</div>
+    <div style="margin: auto;text-align: center;padding-top:30px">没有评论</div>
     #else
+    <ul class="am-comments-list am-comments-list-flip">
+        #for(comment:commentList)
+        <li class="am-comment">
+            <div class="am-comment-main">
+                <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                        <a href="#link-to-user" class="am-comment-author">#(comment.comment_name)</a>
+                        评论于 <time>#(comment.comment_time)</time>
+                    </div>
+                </header>
+                <div class="am-comment-bd">
+                    #(comment.comment_text)
+                </div>
+            </div>
+        </li>
+        #end
+    </ul>
     #end
 </div>
-<div id="add-comment" style="width: 85%;margin: auto">
+<div id="add-comment" style="width: 90%;margin: auto">
     <form class="am-form" id="comment-add-form" action="" method="post">
         <fieldset>
             <div class="am-form-group">
-                <label for="comment-text">评论</label>
+                <label for="comment-text">添加评论</label>
                 <textarea class="" rows="5" id="comment-text" minlength="5" name="commentText" required
                           placeholder="输入评论（至少 5 个字符）"></textarea>
             </div>
@@ -40,6 +57,7 @@
         </fieldset>
     </form>
 </div>
+<div style="color: white;height: 20px"></div>
 <div class="am-modal am-modal-prompt" tabindex="-1" id="comment-name-div">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">

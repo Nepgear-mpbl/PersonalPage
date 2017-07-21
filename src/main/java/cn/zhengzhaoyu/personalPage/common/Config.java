@@ -40,10 +40,10 @@ public class Config extends JFinalConfig {
 
     @Override
     public void configConstant(Constants me) {
-        me.setBaseDownloadPath(PathKit.getWebRootPath() + "/fileResource");
-        me.setBaseUploadPath(PathKit.getWebRootPath() + "/fileResource");
         me.setDevMode(prop.getBoolean("devMode"));
         me.setJsonFactory(MixedJsonFactory.me());
+        me.setBaseDownloadPath(prop.get("baseDownloadPath"));
+        me.setBaseUploadPath(prop.get("baseUploadPath"));
     }
 
     @Override
