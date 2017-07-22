@@ -30,7 +30,7 @@ public class ArticleController extends BaseController {
             pageNum = getParaToInt();
         }
         Page<Record> article_0 = as.getArticlesByType(0, 6, pageNum);
-        if (0 == article_0.getList().size()&& 0 != article_0.getTotalRow()) {
+        if (0 == article_0.getList().size() && 0 != article_0.getTotalRow()) {
             renderError(404);
         }
         setAttr("article_0", article_0);
@@ -63,5 +63,11 @@ public class ArticleController extends BaseController {
         int articleType = 0;
         ls.addLog("Article type " + articleType + " add.", getIp());
         renderJson(as.addArticle(articleType, title, text, _abstract));
+    }
+
+    @Before({POST.class})
+    void removeArticle() {
+        int articleId = getParaToInt();
+        renderJson(as.deleteArticle(articleId));
     }
 }

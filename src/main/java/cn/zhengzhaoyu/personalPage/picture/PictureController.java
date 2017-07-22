@@ -34,7 +34,7 @@ public class PictureController extends BaseController {
             pageNum = getParaToInt();
         }
         Page<Record> picture_0 = ps.getPicturesByType(0, 6, pageNum);
-        if (0 == picture_0.getList().size()&&0 != picture_0.getTotalRow()) {
+        if (0 == picture_0.getList().size() && 0 != picture_0.getTotalRow()) {
             renderError(404);
         }
         setAttr("picture_0", picture_0);
@@ -45,10 +45,10 @@ public class PictureController extends BaseController {
     public void picInfo() {
         int picId = getParaToInt("id");
         Record picture = ps.findPicturesById(picId);
-        if(null==picture){
+        if (null == picture) {
             renderError(404);
         }
-        List<Record>commentList=cs.getCommentsByTypeAndParent(0,picId);
+        List<Record> commentList = cs.getCommentsByTypeAndParent(0, picId);
         setAttr("commentList", commentList);
         setAttr("picture", picture);
         render("picInfo.html");
@@ -73,5 +73,11 @@ public class PictureController extends BaseController {
             file.delete();
             renderJson(Ret.by("status", false).set("message", "文件存储失败"));
         }
+    }
+
+    @Before({POST.class})
+    void removePicture() {
+        int picId=getParaToInt();
+        renderJson(ps.deletePicture(picId));
     }
 }

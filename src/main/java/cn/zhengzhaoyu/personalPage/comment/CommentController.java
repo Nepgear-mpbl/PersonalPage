@@ -15,8 +15,13 @@ public class CommentController extends BaseController {
         int parentId = getParaToInt(1);
         String name = getPara("name");
         String text = getPara("text");
-        ls.addLog("Comment type "+type+" add.", getIp());
-        renderJson(cs.addComment(name,text,type,parentId));
+        ls.addLog("Comment type " + type + " add.", getIp());
+        renderJson(cs.addComment(name, text, type, parentId));
+    }
+
+    @Before({POST.class})
+    void removeComment() {
+        int commentId = getParaToInt();
+        renderJson(cs.deleteComment(commentId));
     }
 }
-// TODO: 2017/7/22  comment validator

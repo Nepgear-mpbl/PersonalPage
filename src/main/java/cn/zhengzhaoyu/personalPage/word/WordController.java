@@ -40,4 +40,10 @@ public class WordController extends BaseController {
         ls.addLog("Word add.", getIp());
         renderJson(ws.addWord(name, text));
     }
+
+    @Before({POST.class})
+    void removeWord() {
+        int wordId = getParaToInt();
+        renderJson(ws.deleteWord(wordId));
+    }
 }

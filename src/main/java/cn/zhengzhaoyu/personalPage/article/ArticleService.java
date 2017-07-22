@@ -34,4 +34,15 @@ public class ArticleService {
     public Record findArticlesById(int articleId) {
         return Db.findFirst(articleDao.getSqlPara("article.findById", articleId));
     }
+    public Ret deleteArticle(int articleId) {
+        Article article = articleDao.findFirst(articleDao.getSqlPara("article.findById", articleId));
+        if (null == article) {
+            return Ret.by("status", false).set("message", "文章不存在");
+        }
+        if (article.delete()) {
+            return Ret.by("status", true).set("message", "删除成功");
+        } else {
+            return Ret.by("status", false).set("message", "数据库错误");
+        }
+    }
 }

@@ -1,10 +1,14 @@
 package cn.zhengzhaoyu.personalPage.picture;
 
 import cn.zhengzhaoyu.personalPage.common.model.Picture;
+import com.jfinal.kit.PathKit;
+import com.jfinal.kit.PropKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+
+import java.io.File;
 
 /**
  * Created by Nepge on 2017/7/20.
@@ -34,5 +38,22 @@ public class PictureService {
 
     public Record findPicturesById(int picId) {
         return Db.findFirst(pictureDao.getSqlPara("picture.findById", picId));
+    }
+
+    public Ret deletePicture(int picId) {
+        Picture picture = pictureDao.findFirst(pictureDao.getSqlPara("picture.findById", picId));
+        if (null == picture) {
+            return Ret.by("status", false).set("message", "图片不存在");
+        }
+        if (picture.delete()) {
+            File picFile= new File(PropKit.get("baseDownloadPath")+'/'+picture.getPath());
+            if(picFile.delete()){
+                return Ret.by("status", true).set("message", "删除成功");
+            }else {
+                return Ret.by("status", false).set("message", "文件删除失败");
+            }
+        } else {
+            return Ret.by("status", false).set("message", "数据库错误");
+        }
     }
 }

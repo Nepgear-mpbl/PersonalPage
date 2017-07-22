@@ -31,4 +31,16 @@ public class WordService {
     public Page<Record> getWords(int pageSize, int pageNumber) {
         return Db.paginate(pageNumber, pageSize, wordDao.getSqlPara("word.getAll"));
     }
+
+    public Ret deleteWord(int wordId) {
+        Word word = wordDao.findFirst(wordDao.getSqlPara("word.findById", wordId));
+        if (null == word) {
+            return Ret.by("status", false).set("message", "留言不存在");
+        }
+        if (word.delete()) {
+            return Ret.by("status", true).set("message", "删除成功");
+        } else {
+            return Ret.by("status", false).set("message", "数据库错误");
+        }
+    }
 }

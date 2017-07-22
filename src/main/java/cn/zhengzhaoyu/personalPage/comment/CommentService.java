@@ -31,4 +31,16 @@ public class CommentService {
     public List<Record> getCommentsByTypeAndParent(int type,int parentId) {
         return Db.find(commentDao.getSqlPara("comment.getByTypeAndParent", type,parentId));
     }
+
+    public Ret deleteComment(int commentId) {
+        Comment comment = commentDao.findFirst(commentDao.getSqlPara("comment.findById", commentId));
+        if (null == comment) {
+            return Ret.by("status", false).set("message", "评论不存在");
+        }
+        if (comment.delete()) {
+            return Ret.by("status", true).set("message", "删除成功");
+        } else {
+            return Ret.by("status", false).set("message", "数据库错误");
+        }
+    }
 }
