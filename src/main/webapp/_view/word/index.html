@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+#set(title="留言板")
+#set(bgImg="bgImage/bg1.jpg")
+#@layout()
+
+#define body()
+<div style="font-size: 200%;text-align: center">
+    <p>留言板</p>
+    <p style="font-size: 50%;color: #aaaaaa;">来了就是想写,犹豫就是想说</p>
+</div>
+<div id="words-show-type0">
+    #if(!words.list)
+    <div style="text-align: center">
+        现在还没有留言，不说点什么吗？
+    </div>
+    #else
+    #for(word:words.list)
+    <div class="am-panel am-panel-default" style="padding-left: 15px;padding-right: 15px">
+        <div  style="font-size: 160%">
+            <p style="font-size: 90%;display: inline">#(word.word_name)</p>
+            <p style="font-size: 50%;color: #aaaaaa;display: inline">留言于#(word.word_time)</p>
+            <p style="font-size: 80%;">#(word.word_text)</p>
+        </div>
+    </div>
+    #end
+    <div style="clear: both">
+        #set(pNum=words.totalRow%words.pageSize==0?words.totalRow/words.pageSize:words.totalRow/words.pageSize+1)
+        #if(pNum==1)
+        #elseif(pNum<=4)
+        <ul class="am-pagination" style="text-align: center">
+            #if(words.pageNumber==1)
+            <li class="am-disabled"><a href="#">&laquo;</a></li>
+            #else
+            <li><a href="/word/#(words.pageNumber-1)">&laquo;</a></li>
+            #end
+            #for(i=0;i<pNum;i++)
+            #if(for.index+1==words.pageNumber)
+            <li class="am-active"><a href="">#(for.index+1)</a></li>
+            #else
+            <li><a href="/word/#(for.index+1)">#(for.index+1)</a></li>
+            #end
+            #end
+            #if(words.pageNumber==pNum)
+            <li class="am-disabled"><a href="#">&raquo;</a></li>
+            #else
+            <li><a href="/word/#(words.pageNumber+1)">&raquo;</a></li>
+            #end
+        </ul>
+        #else
+        <ul class="am-pagination" style="text-align: center">
+            #if(words.pageNumber==1)
+            <li class="am-disabled"><a href="#">&laquo;</a></li>
+            #else
+            <li><a href="/word/#(words.pageNumber-1)">&laquo;</a></li>
+            #end
+            #if(words.pageNumber==1)
+            #for(i=0;i<4;i++)
+            #if(for.index+1==words.pageNumber)
+            <li class="am-active"><a href="">#(for.index+1)</a></li>
+            #else
+            <li><a href="/word/#(for.index+1)">#(for.index+1)</a></li>
+            #end
+            #end
+            #elseif(words.pageNumber+2>=pNum)
+            #for(i=0;i<4;i++)
+            #if(pNum-3+for.index==words.pageNumber)
+            <li class="am-active"><a href="">#(pNum-3+for.index)</a></li>
+            #else
+            <li><a href="/word/#(pNum-3+for.index)">#(pNum-3+for.index)</a></li>
+            #end
+            #end
+            #else
+            <li><a href="/word/#(words.pageNumber-1)">#(words.pageNumber-1)</a></li>
+            <li class="am-active"><a href="">#(words.pageNumber)</a></li>
+            <li><a href="/word/#(words.pageNumber+1)">#(words.pageNumber+1)</a></li>
+            <li><a href="/word/#(words.pageNumber+2)">#(words.pageNumber+2)</a></li>
+            #end
+            #if(words.pageNumber==pNum)
+            <li class="am-disabled"><a href="#">&raquo;</a></li>
+            #else
+            <li><a href="/word/#(words.pageNumber+1)">&raquo;</a></li>
+            #end
+        </ul>
+        #end
+    </div>
+    #end
+</div>
+<div class="am-panel am-panel-default">
+    <div class="am-panel-hd">
+        <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#add-word'}">
+           添加留言
+        </h4>
+    </div>
+    <div id="add-word" class="am-panel-collapse am-collapse">
+        <div class="am-panel-bd">
+            <div>
+                <form class="am-form" id="word-add-form" action="" method="post">
+                    <fieldset>
+                        #if(!guest)
+                        <div class="am-form-group">
+                            <label for="name-input">id：</label>
+                            <input type="text" name="name" id="name-input" minlength="1"
+                                   placeholder="既然是留言，还是留个名吧" required/>
+                        </div>
+                        #end
+                        <div class="am-form-group">
+                            <label for="text-input">正文</label>
+                            <textarea class="" rows="5" id="text-input" minlength="1"
+                                      placeholder="说点什么吧" required></textarea>
+                        </div>
+
+                        <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="/assets/layer/layer.js"></script>
+<script src="/assets/js/word.js"></script>
+#end

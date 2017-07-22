@@ -4,8 +4,10 @@ import cn.zhengzhaoyu.personalPage.article.ArticleController;
 import cn.zhengzhaoyu.personalPage.comment.CommentController;
 import cn.zhengzhaoyu.personalPage.common.controller.GuestController;
 import cn.zhengzhaoyu.personalPage.common.controller.ImgController;
+import cn.zhengzhaoyu.personalPage.common.model.Word;
 import cn.zhengzhaoyu.personalPage.index.IndexController;
 import cn.zhengzhaoyu.personalPage.picture.PictureController;
+import cn.zhengzhaoyu.personalPage.word.WordController;
 import com.jfinal.config.Routes;
 
 /**
@@ -25,5 +27,6 @@ public class FrontRoute extends Routes {
         add("picture", PictureController.class);
         add("comment", CommentController.class);
         add("article", ArticleController.class);
+        add("word", WordController.class);
     }
 }
