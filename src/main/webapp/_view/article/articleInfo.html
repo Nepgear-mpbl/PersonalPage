@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-#set(title="图片详情 -- " + picture.title)
+#set(title="随笔 -- " + article.title)
 #set(bgImg="bgImage/bg1.jpg")
 #@layout()
 
 #define body()
-<p id="pic-id" hidden>#(picture.id)</p>
-<div id="pic-detail">
-    <div class="am-panel am-panel-default" style="width: 90%;margin: 0 auto">
-        <div style="text-align: center;font-size: 150%;">
-            <p style="font-weight: bold">#(picture.title)</p>
-            <p style="font-size: 60%;color: #aaaaaa">上传于#(picture.upload_time)</p>
-        </div>
-        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
-        <img class="am-img-responsive" src="/img?fileName=#(picture.path)" style="margin: auto"/>
-        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
-        <div style="text-align: left;padding-left: 15px;padding-right: 15px;min-height: 100px">
-            <p style="font-weight: bold;font-size: 75%">简介:</p>
-            <p>&nbsp;&nbsp;#(picture.introduction)</p>
-        </div>
+<p id="article-id" hidden>#(article.id)</p>
+<div >
+    <div class="am-panel am-panel-default" style="padding: 20px;padding-bottom: 40px">
+        <article class="am-article" style="font-size: 125%">
+            <div class="am-article-hd">
+                <h1 class="am-article-title">#(article.title)</h1>
+                <p class="am-article-meta">作于#(article.article_time)</p>
+            </div>
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+            <div class="am-article-bd">
+                #if(article.article_abstract)
+                <p class="am-article-lead" row>#(article.article_abstract)</p>
+                #else
+                #end
+                &nbsp;&nbsp;#(article.article_text)
+            </div>
+        </article>
     </div>
 </div>
 <div id="comment">
@@ -74,5 +77,5 @@
 
 #define js()
 <script src="/assets/layer/layer.js"></script>
-<script src="/assets/js/picInfo.js"></script>
+<script src="/assets/js/articleInfo.js"></script>
 #end

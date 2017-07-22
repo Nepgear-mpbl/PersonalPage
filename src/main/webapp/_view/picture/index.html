@@ -5,8 +5,10 @@
 
 #define body()
 <div id="pic-show-type0">
-    #if(!picture_0)
-    当前种类暂时没有图片
+    #if(!picture_0.list)
+    <div style="text-align: center">
+        当前分类暂时没有图片
+    </div>
     #else
     #for(pic:picture_0.list)
     <div class="am-panel am-panel-default" style="width: 50%;float: left">
@@ -122,6 +124,6 @@
 #end
 
 #define js()
-<script src="/assets/js/layer.js"></script>
+<script src="/assets/layer/layer.js"></script>
 <script src="/assets/js/picture.js"></script>
 #end

@@ -40,6 +40,7 @@ $(document).ready(function () {
             success: function (retJson) {
                 $('progress').hide();
                 layer.msg(retJson.message.toString());
+                setTimeout('location.reload()',1000);
             },
             error: function () {
                 $('progress').hide();

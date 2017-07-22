@@ -34,7 +34,7 @@ public class PictureController extends BaseController {
             pageNum = getParaToInt();
         }
         Page<Record> picture_0 = ps.getPicturesByType(0, 6, pageNum);
-        if (0 == picture_0.getList().size()) {
+        if (0 == picture_0.getList().size()&&0 != picture_0.getTotalRow()) {
             renderError(404);
         }
         setAttr("picture_0", picture_0);

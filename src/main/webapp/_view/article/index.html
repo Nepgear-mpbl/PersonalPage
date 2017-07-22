@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+#set(title="随笔")
+#set(bgImg="bgImage/bg1.jpg")
+#@layout()
+
+#define body()
+<div id="article-show-type0">
+    #if(!article_0.list)
+    <div style="text-align: center">
+    当前分类暂时没有文章
+    </div>
+    #else
+    #for(article:article_0.list)
+    <div class="am-panel am-panel-default" style="padding-left: 15px;padding-right: 15px">
+        <div  style="font-size: 160%">
+            <a href="/article/articleInfo?id=#(article.id)" style="font-size: 130%;color: black">#(article.title)</a>
+            <p style="font-size: 60%;">#(article.article_text.substring(0,10))...</p>
+            <p style="font-size: 60%;color: #aaaaaa">#(article.article_time)</p>
+        </div>
+    </div>
+    #end
+    <div style="clear: both">
+        #set(pNum=article_0.totalRow%article_0.pageSize==0?article_0.totalRow/article_0.pageSize:article_0.totalRow/article_0.pageSize+1)
+        #if(pNum==1)
+        #elseif(pNum<=4)
+        <ul class="am-pagination" style="text-align: center">
+            #if(article_0.pageNumber==1)
+            <li class="am-disabled"><a href="#">&laquo;</a></li>
+            #else
+            <li><a href="/article/#(article_0.pageNumber-1)">&laquo;</a></li>
+            #end
+            #for(i=0;i<pNum;i++)
+            #if(for.index+1==article_0.pageNumber)
+            <li class="am-active"><a href="">#(for.index+1)</a></li>
+            #else
+            <li><a href="/article/#(for.index+1)">#(for.index+1)</a></li>
+            #end
+            #end
+            #if(article_0.pageNumber==pNum)
+            <li class="am-disabled"><a href="#">&raquo;</a></li>
+            #else
+            <li><a href="/article/#(article_0.pageNumber+1)">&raquo;</a></li>
+            #end
+        </ul>
+        #else
+        <ul class="am-pagination" style="text-align: center">
+            #if(article_0.pageNumber==1)
+            <li class="am-disabled"><a href="#">&laquo;</a></li>
+            #else
+            <li><a href="/article/#(article_0.pageNumber-1)">&laquo;</a></li>
+            #end
+            #if(article_0.pageNumber==1)
+            #for(i=0;i<4;i++)
+            #if(for.index+1==article_0.pageNumber)
+            <li class="am-active"><a href="">#(for.index+1)</a></li>
+            #else
+            <li><a href="/article/#(for.index+1)">#(for.index+1)</a></li>
+            #end
+            #end
+            #elseif(article_0.pageNumber+2>=pNum)
+            #for(i=0;i<4;i++)
+            #if(pNum-3+for.index==article_0.pageNumber)
+            <li class="am-active"><a href="">#(pNum-3+for.index)</a></li>
+            #else
+            <li><a href="/article/#(pNum-3+for.index)">#(pNum-3+for.index)</a></li>
+            #end
+            #end
+            #else
+            <li><a href="/article/#(article_0.pageNumber-1)">#(article_0.pageNumber-1)</a></li>
+            <li class="am-active"><a href="">#(article_0.pageNumber)</a></li>
+            <li><a href="/article/#(article_0.pageNumber+1)">#(article_0.pageNumber+1)</a></li>
+            <li><a href="/article/#(article_0.pageNumber+2)">#(article_0.pageNumber+2)</a></li>
+            #end
+            #if(article_0.pageNumber==pNum)
+            <li class="am-disabled"><a href="#">&raquo;</a></li>
+            #else
+            <li><a href="/article/#(article_0.pageNumber+1)">&raquo;</a></li>
+            #end
+        </ul>
+        #end
+    </div>
+    #end
+</div>
+<div style="text-align: center">
+    <a href="/article/add"> 添加随笔</a>
+</div>
+#end
+
+#define js()
+<script src="/assets/js/article.js"></script>
+#end

@@ -29,8 +29,8 @@ public class ArticleController extends BaseController {
         if (null != getParaToInt()) {
             pageNum = getParaToInt();
         }
-        Page<Record> article_0 = as.getArticlesByType(0, 10, pageNum);
-        if (0 == article_0.getList().size()) {
+        Page<Record> article_0 = as.getArticlesByType(0, 6, pageNum);
+        if (0 == article_0.getList().size()&& 0 != article_0.getTotalRow()) {
             renderError(404);
         }
         setAttr("article_0", article_0);
@@ -44,19 +44,24 @@ public class ArticleController extends BaseController {
         if (null == article) {
             renderError(404);
         }
-        List<Record> commentList = cs.getCommentsByTypeAndParent(0, articleId);
+        List<Record> commentList = cs.getCommentsByTypeAndParent(1, articleId);
         setAttr("commentList", commentList);
         setAttr("article", article);
         render("articleInfo.html");
     }
 
+    @Before({GET.class})
+    public void add() {
+        render("addArticle.html");
+    }
+
     @Before({POST.class})
-    public void uploadArticles() {
+    public void uploadArticle() {
         String title = getPara("title");
         String text = getPara("text");
-        String _abstract=getPara("abstract");
+        String _abstract = getPara("abstract");
         int articleType = 0;
         ls.addLog("Article type " + articleType + " add.", getIp());
-        renderJson(as.addArticle(articleType,title,text,_abstract));
+        renderJson(as.addArticle(articleType, title, text, _abstract));
     }
 }

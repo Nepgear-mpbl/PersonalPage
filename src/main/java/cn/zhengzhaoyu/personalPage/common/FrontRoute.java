@@ -1,5 +1,6 @@
 package cn.zhengzhaoyu.personalPage.common;
 
+import cn.zhengzhaoyu.personalPage.article.ArticleController;
 import cn.zhengzhaoyu.personalPage.comment.CommentController;
 import cn.zhengzhaoyu.personalPage.common.controller.GuestController;
 import cn.zhengzhaoyu.personalPage.common.controller.ImgController;
@@ -23,5 +24,6 @@ public class FrontRoute extends Routes {
         add("guest", GuestController.class);
         add("picture", PictureController.class);
         add("comment", CommentController.class);
+        add("article", ArticleController.class);
     }
 }

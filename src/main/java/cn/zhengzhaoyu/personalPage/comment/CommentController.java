@@ -19,4 +19,4 @@ public class CommentController extends BaseController {
         renderJson(cs.addComment(name,text,type,parentId));
     }
 }
-//todo comment validator
+// TODO: 2017/7/22  comment validator

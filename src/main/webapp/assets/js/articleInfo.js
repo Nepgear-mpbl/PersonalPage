@@ -26,13 +26,14 @@ $(document).ready(function () {
                     formData.name = '游客';
                     console.log(formData);
                     sendRequest(formData);
+                    sendRequest(formData);
                 }
             });
         }
     });
 
     function sendRequest(postData) {
-        $.post('/comment/addComment/0-' + $('#pic-id').text(), postData, function (retJson) {
+        $.post('/comment/addComment/1-' + $('#article-id').text(), postData, function (retJson) {
             if (retJson.status) {
                 layer.msg("评论成功");
                 setTimeout('location.reload()',1000);
