@@ -26,10 +26,17 @@
                     </li>
                 </ul>
                 #if(guest)
+                #if(guest.status)
+                <div class="am-topbar-right" id="guest-name-div">
+                    欢迎回来
+                </div>
+                <p id="guest-name" hidden>RainVerse</p>
+                #else
                 <div class="am-topbar-right" id="guest-name-div">
                     欢迎,#(guest.name)
                 </div>
                 <p id="guest-name" hidden>#(guest.name)</p>
+                #end
                 #else
                 <button
                         type="button"

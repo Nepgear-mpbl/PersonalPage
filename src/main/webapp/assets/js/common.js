@@ -8,9 +8,10 @@ $(document).ready(function () {
                 if (e.data !== '') {
                     $.post('/guest', postData, function (retJson) {
                         if (retJson.status) {
-                            location.reload();
+                            layer.msg(retJson.message);
+                            setTimeout('location.reload()', 1000);
                         } else {
-                            alert("Unknown Error!");
+                            layer.msg(retJson.message);
                         }
                     });
                 }else{

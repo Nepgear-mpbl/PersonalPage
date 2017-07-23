@@ -22,7 +22,9 @@
                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
                 <div style="text-align: center;padding-bottom: 20px">
                     <a href="/picture/picInfo?id=#(pic.id)">#(pic.title)</a>
+                    #if(guest&&guest.status)
                     <a href="/picture/removePicture/#(pic.id)" style="float: right;color: #aaaaaa" class="remove">删除</a>
+                    #end
                 </div>
             </div>
         </div>
@@ -92,6 +94,7 @@
     </div>
     #end
 </div>
+#if(guest&&guest.status)
 <div id="pic-upload" style="padding-bottom: 20px;clear: both">
     <div class="am-panel-group" id="accordion">
         <div class="am-panel am-panel-default">
@@ -133,12 +136,13 @@
     </div>
 </div>
 #end
+<div style="color: white;height: 20px"></div>
+#end
 
 #define css()
 <link rel="stylesheet" href="/assets/css/picture.css">
 #end
 
 #define js()
-<script src="/assets/layer/layer.js"></script>
 <script src="/assets/js/picture.js"></script>
 #end

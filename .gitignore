@@ -88,3 +88,4 @@ personalPage.iml
 config-dev.properties
 /target
 /src/main/webapp/fileResource
+/src/main/java/cn/zhengzhaoyu/personalPage/common/key/

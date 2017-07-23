@@ -36,7 +36,9 @@
                 </header>
                 <div class="am-comment-bd">
                     #(comment.comment_text)
+                    #if(guest&&guest.status)
                     <a href="/comment/removeComment/#(comment.id)" style="float: right;font-size: 100%;color: #aaaaaa" class="remove">删除</a>
+                    #end
                 </div>
             </div>
         </li>
@@ -77,6 +79,5 @@
 #end
 
 #define js()
-<script src="/assets/layer/layer.js"></script>
 <script src="/assets/js/picInfo.js"></script>
 #end

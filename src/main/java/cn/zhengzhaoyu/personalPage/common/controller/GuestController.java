@@ -1,5 +1,6 @@
 package cn.zhengzhaoyu.personalPage.common.controller;
 
+import cn.zhengzhaoyu.personalPage.common.key.Key;
 import cn.zhengzhaoyu.personalPage.common.service.LogService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
@@ -21,13 +22,25 @@ public class GuestController extends BaseController{
     @Before({POST.class})
     public void index() {
         String guestName=getPara("name");
+        if("RainVerse".equals(guestName)){
+            renderJson(Ret.by("status", false).set("message","行行好，换个id吧"));
+            return;
+        }
         String token = StrKit.getRandomUUID();
         HashMap<String,Object> guest=new HashMap<>();
         guest.put("name",guestName);
-        guest.put("status",true);
-        Redis.use().set(token, guest);
-        setCookie("Guest", token, 60 * 60);
-        ls.addLog("Guest "+guestName+" visit.",getIp());
-        renderJson(Ret.by("status", true).set("message","欢迎，"+guestName));
+        if(guestName.equals(Key.key)){
+            guest.put("status",true);
+            Redis.use().set(token, guest);
+            setCookie("Guest", token, 60 * 60);
+            ls.addLog("RainVerse visit.",getIp());
+            renderJson(Ret.by("status", true).set("message","欢迎回来"));
+        }else{
+            guest.put("status",false);
+            Redis.use().set(token, guest);
+            setCookie("Guest", token, 60 * 60);
+            ls.addLog("Guest "+guestName+" visit.",getIp());
+            renderJson(Ret.by("status", true).set("message","欢迎，"+guestName));
+        }
     }
 }

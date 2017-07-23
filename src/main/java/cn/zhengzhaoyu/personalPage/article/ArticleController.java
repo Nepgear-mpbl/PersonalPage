@@ -8,7 +8,9 @@ import com.jfinal.ext.interceptor.GET;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.redis.Redis;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class ArticleController extends BaseController {
         if (null != getParaToInt()) {
             pageNum = getParaToInt();
         }
-        Page<Record> article_0 = as.getArticlesByType(0, 6, pageNum);
+        Page<Record> article_0 = as.getArticlesByType(0, 4, pageNum);
         if (0 == article_0.getList().size() && 0 != article_0.getTotalRow()) {
             renderError(404);
         }
@@ -52,7 +54,13 @@ public class ArticleController extends BaseController {
 
     @Before({GET.class})
     public void add() {
-        render("addArticle.html");
+        String token=getCookie("Guest");
+        HashMap guest = token == null ? null : Redis.use().get(token);
+        if (null != guest&& (boolean)guest.get("status")) {
+            render("addArticle.html");
+        }else {
+            renderError(404);
+        }
     }
 
     @Before({POST.class})
