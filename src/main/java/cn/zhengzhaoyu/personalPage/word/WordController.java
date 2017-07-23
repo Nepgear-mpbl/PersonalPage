@@ -42,7 +42,7 @@ public class WordController extends BaseController {
     }
 
     @Before({POST.class})
-    void removeWord() {
+    public void removeWord() {
         int wordId = getParaToInt();
         renderJson(ws.deleteWord(wordId));
     }

@@ -76,7 +76,7 @@ public class PictureController extends BaseController {
     }
 
     @Before({POST.class})
-    void removePicture() {
+    public void removePicture() {
         int picId=getParaToInt();
         renderJson(ps.deletePicture(picId));
     }

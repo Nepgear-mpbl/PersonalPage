@@ -20,7 +20,7 @@ public class CommentController extends BaseController {
     }
 
     @Before({POST.class})
-    void removeComment() {
+    public void removeComment() {
         int commentId = getParaToInt();
         renderJson(cs.deleteComment(commentId));
     }

@@ -14,15 +14,20 @@
         当前分类暂时没有图片
     </div>
     #else
-    #for(pic:picture_0.list)
-    <div class="am-panel am-panel-default" style="width: 50%;float: left">
-        <img class="am-img-responsive" src="/img?fileName=#(pic.path)"/>
-        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-        <div  style="text-align: center;padding-bottom: 20px">
-            <a href="/picture/picInfo?id=#(pic.id)">#(pic.title)</a>
+    <div class="waterfall">
+        #for(pic:picture_0.list)
+        <div class=" item">
+            <div class="am-panel am-panel-default">
+                <img class="am-img-responsive" src="/img?fileName=#(pic.path)"/>
+                <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                <div style="text-align: center;padding-bottom: 20px">
+                    <a href="/picture/picInfo?id=#(pic.id)">#(pic.title)</a>
+                    <a href="/picture/removePicture/#(pic.id)" style="float: right;color: #aaaaaa" class="remove">删除</a>
+                </div>
+            </div>
         </div>
+        #end
     </div>
-    #end
     <div style="clear: both">
         #set(pNum=picture_0.totalRow%picture_0.pageSize==0?picture_0.totalRow/picture_0.pageSize:picture_0.totalRow/picture_0.pageSize+1)
         #if(pNum==1)
@@ -33,8 +38,10 @@
             #else
             <li><a href="/picture/#(picture_0.pageNumber-1)">&laquo;</a></li>
             #end
-            #for(i=0;i<pNum;i++)
-            #if(for.index+1==picture_0.pageNumber)
+            #for(i=0;i
+            <pNum
+                    ;i++)
+                    #if(for.index+1==picture_0.pageNumber)
             <li class="am-active"><a href="">#(for.index+1)</a></li>
             #else
             <li><a href="/picture/#(for.index+1)">#(for.index+1)</a></li>
@@ -125,6 +132,10 @@
         </div>
     </div>
 </div>
+#end
+
+#define css()
+<link rel="stylesheet" href="/assets/css/picture.css">
 #end
 
 #define js()

@@ -22,7 +22,7 @@ $(document).ready(function () {
             layer.msg("不要忘了简介");
             return;
         }
-        var formData = new FormData($('#img-upload-form'));
+        var formData = new FormData(document.getElementById("img-upload-form"));
         console.log(formData);
         $.ajax({
             url: '/picture/uploadPicture',
@@ -55,6 +55,23 @@ $(document).ready(function () {
     function progressHandlingFunction(e) {
         $('progress').attr({value: e.loaded, max: e.total});
     }
+
+    $('.remove').click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var url = $this.prop('href');
+        layer.confirm('确定删除吗?', function (index) {
+            $.post(url, {}, function (retJson) {
+                if (retJson.status) {
+                    layer.msg(retJson.message);
+                    setTimeout('location.reload()', 1000);
+                } else {
+                    layer.msg(retJson.message);
+                }
+            });
+            layer.close(index);
+        });
+    });
 });
 
 

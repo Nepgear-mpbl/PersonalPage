@@ -19,6 +19,7 @@
         <div  style="font-size: 160%">
             <a href="/article/articleInfo?id=#(article.id)" style="font-size: 130%;color: black">#(article.title)</a>
             <p style="font-size: 60%;">#(article.article_text.substring(0,10))...</p>
+            <a href="/article/removeArticle/#(article.id)" style="float: right;font-size: 70%;color: #aaaaaa" class="remove">删除</a>
             <p style="font-size: 60%;color: #aaaaaa">#(article.article_time)</p>
         </div>
     </div>
@@ -91,5 +92,6 @@
 #end
 
 #define js()
+<script src="/assets/layer/layer.js"></script>
 <script src="/assets/js/article.js"></script>
 #end

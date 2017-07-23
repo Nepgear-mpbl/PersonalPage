@@ -18,7 +18,7 @@ public class CommentService {
     public static final CommentService me = new CommentService();
     private static final Comment commentDao = new Comment().dao();
 
-    public Ret addComment(String commentName, String commentText, int type,int parentId) {
+    public Ret addComment(String commentName, String commentText, int type, int parentId) {
         Comment comment = new Comment();
         comment.setCommentName(commentName).setCommentText(commentText).setType(type).setParent(parentId);
         if (comment.save()) {
@@ -28,8 +28,12 @@ public class CommentService {
         }
     }
 
-    public List<Record> getCommentsByTypeAndParent(int type,int parentId) {
-        return Db.find(commentDao.getSqlPara("comment.getByTypeAndParent", type,parentId));
+    public List<Record> getCommentsByTypeAndParent(int type, int parentId) {
+        return Db.find(commentDao.getSqlPara("comment.getByTypeAndParent", type, parentId));
+    }
+
+    public List<Comment> getCommentsByTypeAndParent_entity(int type, int parentId) {
+        return commentDao.find(commentDao.getSqlPara("comment.getByTypeAndParent", type, parentId));
     }
 
     public Ret deleteComment(int commentId) {

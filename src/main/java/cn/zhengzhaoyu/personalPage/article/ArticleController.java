@@ -66,7 +66,7 @@ public class ArticleController extends BaseController {
     }
 
     @Before({POST.class})
-    void removeArticle() {
+    public void removeArticle() {
         int articleId = getParaToInt();
         renderJson(as.deleteArticle(articleId));
     }

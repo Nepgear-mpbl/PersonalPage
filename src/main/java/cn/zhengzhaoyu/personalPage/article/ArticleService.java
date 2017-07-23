@@ -1,10 +1,14 @@
 package cn.zhengzhaoyu.personalPage.article;
 
+import cn.zhengzhaoyu.personalPage.comment.CommentService;
 import cn.zhengzhaoyu.personalPage.common.model.Article;
+import cn.zhengzhaoyu.personalPage.common.model.Comment;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+
+import java.util.List;
 
 /**
  * Created by Nepge on 2017/7/21.
@@ -15,6 +19,7 @@ import com.jfinal.plugin.activerecord.Record;
  */
 public class ArticleService {
     public static final ArticleService me = new ArticleService();
+    public static final CommentService cs = new CommentService();
     private static final Article articleDao = new Article().dao();
 
     public Ret addArticle(int type, String title, String text, String _abstract) {
@@ -34,12 +39,18 @@ public class ArticleService {
     public Record findArticlesById(int articleId) {
         return Db.findFirst(articleDao.getSqlPara("article.findById", articleId));
     }
+
     public Ret deleteArticle(int articleId) {
         Article article = articleDao.findFirst(articleDao.getSqlPara("article.findById", articleId));
         if (null == article) {
             return Ret.by("status", false).set("message", "文章不存在");
         }
         if (article.delete()) {
+            List<Comment> commentList = cs.getCommentsByTypeAndParent_entity(1, articleId);
+            for (Comment c : commentList
+                    ) {
+                c.delete();
+            }
             return Ret.by("status", true).set("message", "删除成功");
         } else {
             return Ret.by("status", false).set("message", "数据库错误");

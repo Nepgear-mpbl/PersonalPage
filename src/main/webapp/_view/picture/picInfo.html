@@ -36,6 +36,7 @@
                 </header>
                 <div class="am-comment-bd">
                     #(comment.comment_text)
+                    <a href="/comment/removeComment/#(comment.id)" style="float: right;font-size: 100%;color: #aaaaaa" class="remove">删除</a>
                 </div>
             </div>
         </li>
@@ -69,6 +70,9 @@
             <span class="am-modal-btn" data-am-modal-confirm>好的</span>
         </div>
     </div>
+</div>
+<div style="text-align: center">
+    <a href="/picture"> 返回</a>
 </div>
 #end
 
