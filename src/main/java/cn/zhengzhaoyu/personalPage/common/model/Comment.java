@@ -1,5 +1,6 @@
 package cn.zhengzhaoyu.personalPage.common.model;
 
+import cn.zhengzhaoyu.personalPage.common.safe.JsoupFilter;
 import cn.zhengzhaoyu.personalPage.common.model.base.BaseComment;
 
 /**
@@ -7,5 +8,8 @@ import cn.zhengzhaoyu.personalPage.common.model.base.BaseComment;
  */
 @SuppressWarnings("serial")
 public class Comment extends BaseComment<Comment> {
-	
+    @Override
+    protected void filter(int filterBy) {
+        JsoupFilter.filterComment(this);
+    }
 }

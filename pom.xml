@@ -98,6 +98,11 @@
             <artifactId>cos</artifactId>
             <version>2017.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.3</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>ROOT</finalName>
