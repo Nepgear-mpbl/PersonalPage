@@ -1,24 +1,16 @@
 $(document).ready(function () {
     $('#guset-name-btn').on('click', function () {
-        $('#guest-name-input').modal({
-            relatedTarget: this,
-            dimmer:false,
-            onConfirm: function (e) {
-                var postData={"name":e.data};
-                if (e.data !== '') {
-                    $.post('/guest', postData, function (retJson) {
-                        if (retJson.status) {
-                            layer.msg(retJson.message);
-                            setTimeout('location.reload()', 1000);
-                        } else {
-                            layer.msg(retJson.message);
-                        }
-                    });
-                }else{
+        layer.prompt({title:'喜欢的id就行'},function (value, index, elem) {
+            var postData = {"name": value};
+            $.post('/guest', postData, function (retJson) {
+                if (retJson.status) {
+                    layer.msg(retJson.message);
+                    setTimeout('location.reload()', 1000);
+                } else {
+                    layer.msg(retJson.message);
                 }
-            },
-            onCancel: function (e) {
-            }
+            });
+            layer.close(index);
         });
     });
 });

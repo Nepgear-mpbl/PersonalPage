@@ -12,7 +12,6 @@ $(document).ready(function () {
         else {
             $('#comment-name-div').modal({
                 relatedTarget: this,
-                dimmer: false,
                 onConfirm: function (e) {
                     if (e.data !== '') {
                         formData.name = e.data;
@@ -25,7 +24,6 @@ $(document).ready(function () {
                 onCancel: function (e) {
                     formData.name = '游客';
                     console.log(formData);
-                    sendRequest(formData);
                     sendRequest(formData);
                 }
             });
