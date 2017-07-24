@@ -9,6 +9,7 @@ import cn.zhengzhaoyu.personalPage.index.IndexController;
 import cn.zhengzhaoyu.personalPage.picture.PictureController;
 import cn.zhengzhaoyu.personalPage.word.WordController;
 import com.jfinal.config.Routes;
+import music.MusicController;
 
 /**
  * Created by Nepge on 2017/7/18.
@@ -28,5 +29,6 @@ public class FrontRoute extends Routes {
         add("comment", CommentController.class);
         add("article", ArticleController.class);
         add("word", WordController.class);
+        add("music", MusicController.class);
     }
 }
