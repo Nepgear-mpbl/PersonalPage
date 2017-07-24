@@ -11,8 +11,10 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
+import net.coobird.thumbnailator.Thumbnails;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -55,7 +57,7 @@ public class PictureController extends BaseController {
     }
 
     @Before({POST.class})
-    public void uploadPicture() {
+    public void uploadPicture() throws IOException {
         int maxSize = 10 * 1024 * 1024;
         UploadFile uploadFile = getFile("file", "/pictures/", maxSize);
         String title = getPara("title");
@@ -67,6 +69,9 @@ public class PictureController extends BaseController {
         String AbsPath = file.getAbsolutePath();
         String path = AbsPath.substring(0, AbsPath.lastIndexOf('\\')) + '\\' + uuid + type;
         if (file.renameTo(new File(path))) {
+            Thumbnails.of(path)
+                    .size(650, 1000)
+                    .toFile(AbsPath.substring(0, AbsPath.lastIndexOf('\\')) + "\\thumbnails\\" + uuid + type);
             ls.addLog("Picture add.", getIp());
             renderJson(ps.addPicture(uuid, type, title, introduction, imgType));
         } else {

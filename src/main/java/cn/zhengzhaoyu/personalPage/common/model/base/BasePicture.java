@@ -36,6 +36,15 @@ public abstract class BasePicture<M extends BasePicture<M>> extends Model<M> imp
 		return get("path");
 	}
 
+	public M setThumbnailPath(java.lang.String thumbnailPath) {
+		set("thumbnail_path", thumbnailPath);
+		return (M)this;
+	}
+
+	public java.lang.String getThumbnailPath() {
+		return get("thumbnail_path");
+	}
+
 	public M setTitle(java.lang.String title) {
 		set("title", title);
 		return (M)this;

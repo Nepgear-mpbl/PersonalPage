@@ -27,7 +27,8 @@ public class PictureService {
     public Ret addPicture(String uuid, String type, String title, String introduction, int imgType) {
         Picture picture = new Picture();
         String path = "pictures/" + uuid + type;
-        picture.setIntroduction(introduction).setUuid(uuid).setPath(path).setTitle(title).setType(imgType);
+        String thumbnailPath = "pictures/thumbnails/" + uuid + type;
+        picture.setIntroduction(introduction).setUuid(uuid).setPath(path).setTitle(title).setType(imgType).setThumbnailPath(thumbnailPath);
         if (picture.save()) {
             return Ret.by("status", true).set("message", "上传成功");
         } else {
@@ -51,12 +52,17 @@ public class PictureService {
         if (picture.delete()) {
             File picFile = new File(PropKit.get("baseDownloadPath") + '/' + picture.getPath());
             if (picFile.delete()) {
-                List<Comment> commentList = cs.getCommentsByTypeAndParent_entity(0, picId);
-                for (Comment c : commentList
-                        ) {
-                    c.delete();
+                File thumFile = new File(PropKit.get("baseDownloadPath") + '/' + picture.getThumbnailPath());
+                if (thumFile.delete()) {
+                    List<Comment> commentList = cs.getCommentsByTypeAndParent_entity(0, picId);
+                    for (Comment c : commentList
+                            ) {
+                        c.delete();
+                    }
+                    return Ret.by("status", true).set("message", "删除成功");
+                } else {
+                    return Ret.by("status", false).set("message", "缩略图删除失败");
                 }
-                return Ret.by("status", true).set("message", "删除成功");
             } else {
                 return Ret.by("status", false).set("message", "文件删除失败");
             }
