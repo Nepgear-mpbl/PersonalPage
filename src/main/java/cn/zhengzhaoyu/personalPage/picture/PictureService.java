@@ -40,8 +40,12 @@ public class PictureService {
         return Db.paginate(pageNumber, pageSize, pictureDao.getSqlPara("picture.getByType", type));
     }
 
-    public Record findPicturesById(int picId) {
-        return Db.findFirst(pictureDao.getSqlPara("picture.findById", picId));
+    public Page<Record> getAllPictures(int pageSize,int pageNumber) {
+        return Db.paginate(pageNumber, pageSize,pictureDao.getSqlPara("picture.getAll"));
+    }
+
+    public Record findPicturesByIdWithType(int picId) {
+        return Db.findFirst(pictureDao.getSqlPara("picture.findByIdWithType", picId));
     }
 
     public Ret deletePicture(int picId) {

@@ -15,4 +15,12 @@ $(document).ready(function () {
             layer.close(index);
         });
     });
+    $('#article-select').change(function () {
+        var type = $(this).children('option:selected').val();
+        if(type==='0'){
+            location.href="/article";
+        }else{
+            location.href="/article?type="+type.toString();
+        }
+    })
 });

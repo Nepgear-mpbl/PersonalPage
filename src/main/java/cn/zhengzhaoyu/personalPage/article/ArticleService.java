@@ -36,8 +36,12 @@ public class ArticleService {
         return Db.paginate(pageNumber, pageSize, articleDao.getSqlPara("article.getByType", type));
     }
 
-    public Record findArticlesById(int articleId) {
-        return Db.findFirst(articleDao.getSqlPara("article.findById", articleId));
+    public Page<Record> getAllArticles(int pageSize, int pageNumber) {
+        return Db.paginate(pageNumber, pageSize, articleDao.getSqlPara("article.getAll"));
+    }
+
+    public Record findArticlesByIdWithType(int articleId) {
+        return Db.findFirst(articleDao.getSqlPara("article.findByIdWithType", articleId));
     }
 
     public Ret deleteArticle(int articleId) {

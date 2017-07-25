@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 #set(title="随笔")
 #set(bgImg="bgImage/bg1.jpg")
+#if(type)
+#set(curType="&type="+type.toString())
+#else
+#set(curType="")
+#end
 #@layout()
 
 #define body()
@@ -8,13 +13,26 @@
     <p>随笔</p>
     <p style="font-size: 50%;color: #aaaaaa;">文采?不存在的</p>
 </div>
+<div style="padding: 10px">
+  <label for="article-select">分类</label>
+    <select id="article-select">
+        <option value="0">全部</option>
+        #for(_type:types)
+        #if(type==_type.id)
+        <option selected value="#(_type.id)">#(_type.type_name)</option>
+        #else
+        <option value="#(_type.id)">#(_type.type_name)</option>
+        #end
+        #end
+    </select>
+</div>
 <div id="article-show-type0">
-    #if(!article_0.list)
+    #if(!articles.list)
     <div style="text-align: center">
     当前分类暂时没有文章
     </div>
     #else
-    #for(article:article_0.list)
+    #for(article:articles.list)
     <div class="am-panel am-panel-default" style="padding-left: 15px;padding-right: 15px">
         <div  style="font-size: 160%">
             <a href="/article/articleInfo?id=#(article.id)" style="font-size: 130%;color: black">#(article.title)</a>
@@ -27,61 +45,61 @@
     </div>
     #end
     <div style="clear: both">
-        #set(pNum=article_0.totalRow%article_0.pageSize==0?article_0.totalRow/article_0.pageSize:article_0.totalRow/article_0.pageSize+1)
+        #set(pNum=articles.totalRow%articles.pageSize==0?articles.totalRow/articles.pageSize:articles.totalRow/articles.pageSize+1)
         #if(pNum==1)
         #elseif(pNum<=4)
         <ul class="am-pagination" style="text-align: center">
-            #if(article_0.pageNumber==1)
+            #if(articles.pageNumber==1)
             <li class="am-disabled"><a href="#">&laquo;</a></li>
             #else
-            <li><a href="/article/#(article_0.pageNumber-1)">&laquo;</a></li>
+            <li><a href="/article?page=#(articles.pageNumber-1)#(curType)">&laquo;</a></li>
             #end
             #for(i=0;i<pNum;i++)
-            #if(for.index+1==article_0.pageNumber)
+            #if(for.index+1==articles.pageNumber)
             <li class="am-active"><a href="">#(for.index+1)</a></li>
             #else
-            <li><a href="/article/#(for.index+1)">#(for.index+1)</a></li>
+            <li><a href="/article?page=#(for.index+1)#(curType)">#(for.index+1)</a></li>
             #end
             #end
-            #if(article_0.pageNumber==pNum)
+            #if(articles.pageNumber==pNum)
             <li class="am-disabled"><a href="#">&raquo;</a></li>
             #else
-            <li><a href="/article/#(article_0.pageNumber+1)">&raquo;</a></li>
+            <li><a href="/article?page=#(articles.pageNumber+1)#(curType)">&raquo;</a></li>
             #end
         </ul>
         #else
         <ul class="am-pagination" style="text-align: center">
-            #if(article_0.pageNumber==1)
+            #if(articles.pageNumber==1)
             <li class="am-disabled"><a href="#">&laquo;</a></li>
             #else
-            <li><a href="/article/#(article_0.pageNumber-1)">&laquo;</a></li>
+            <li><a href="/article?page=#(articles.pageNumber-1)#(curType)">&laquo;</a></li>
             #end
-            #if(article_0.pageNumber==1)
+            #if(articles.pageNumber==1)
             #for(i=0;i<4;i++)
-            #if(for.index+1==article_0.pageNumber)
+            #if(for.index+1==articles.pageNumber)
             <li class="am-active"><a href="">#(for.index+1)</a></li>
             #else
-            <li><a href="/article/#(for.index+1)">#(for.index+1)</a></li>
+            <li><a href="/article?page=#(for.index+1)#(curType)">#(for.index+1)</a></li>
             #end
             #end
-            #elseif(article_0.pageNumber+2>=pNum)
+            #elseif(articles.pageNumber+2>=pNum)
             #for(i=0;i<4;i++)
-            #if(pNum-3+for.index==article_0.pageNumber)
+            #if(pNum-3+for.index==articles.pageNumber)
             <li class="am-active"><a href="">#(pNum-3+for.index)</a></li>
             #else
-            <li><a href="/article/#(pNum-3+for.index)">#(pNum-3+for.index)</a></li>
+            <li><a href="/article?page=#(pNum-3+for.index)#(curType)">#(pNum-3+for.index)</a></li>
             #end
             #end
             #else
-            <li><a href="/article/#(article_0.pageNumber-1)">#(article_0.pageNumber-1)</a></li>
-            <li class="am-active"><a href="">#(article_0.pageNumber)</a></li>
-            <li><a href="/article/#(article_0.pageNumber+1)">#(article_0.pageNumber+1)</a></li>
-            <li><a href="/article/#(article_0.pageNumber+2)">#(article_0.pageNumber+2)</a></li>
+            <li><a href="/article?page=#(articles.pageNumber-1)#(curType)">#(articles.pageNumber-1)</a></li>
+            <li class="am-active"><a href="">#(articles.pageNumber)</a></li>
+            <li><a href="/article?page=#(articles.pageNumber+1)#(curType)">#(articles.pageNumber+1)</a></li>
+            <li><a href="/article?page=#(articles.pageNumber+2)#(curType)">#(articles.pageNumber+2)</a></li>
             #end
-            #if(article_0.pageNumber==pNum)
+            #if(articles.pageNumber==pNum)
             <li class="am-disabled"><a href="#">&raquo;</a></li>
             #else
-            <li><a href="/article/#(article_0.pageNumber+1)">&raquo;</a></li>
+            <li><a href="/article?page=#(articles.pageNumber+1)#(curType)">&raquo;</a></li>
             #end
         </ul>
         #end

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#article-add-form').submit(function (e) {
         e.preventDefault();
-        var postData = {title: $('#title-input').val(),text: $('#text-input').val()};
+        var postData = {title: $('#title-input').val(),text: $('#text-input').val(),type:$('#type-input').children('option:selected').val()};
         if($('#abstract-input').val()!==''){
             postData.abstract=$('#abstract-input').val();
         }

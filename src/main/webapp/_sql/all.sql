@@ -14,3 +14,7 @@
 #include("word.sql")
 #end
 
+#namespace("type")
+#include("type.sql")
+#end
+

@@ -72,6 +72,14 @@ $(document).ready(function () {
             layer.close(index);
         });
     });
+    $('#picture-select').change(function () {
+        var type = $(this).children('option:selected').val();
+        if(type==='0'){
+            location.href="/picture";
+        }else{
+            location.href="/picture?type="+type.toString();
+        }
+    })
 });
 
 

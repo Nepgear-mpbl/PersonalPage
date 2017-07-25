@@ -3,6 +3,7 @@ package cn.zhengzhaoyu.personalPage.picture;
 import cn.zhengzhaoyu.personalPage.comment.CommentService;
 import cn.zhengzhaoyu.personalPage.common.controller.BaseController;
 import cn.zhengzhaoyu.personalPage.common.service.LogService;
+import cn.zhengzhaoyu.personalPage.common.service.TypeService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.GET;
 import com.jfinal.ext.interceptor.POST;
@@ -27,26 +28,36 @@ import java.util.List;
 public class PictureController extends BaseController {
     private static final PictureService ps = new PictureService();
     private static final CommentService cs = new CommentService();
+    private static final TypeService ts = new TypeService();
     private static final LogService ls = new LogService();
 
     @Before({GET.class})
     public void index() {
         int pageNum = 1;
-        if (null != getParaToInt()) {
-            pageNum = getParaToInt();
+        if (null != getParaToInt("page")) {
+            pageNum = getParaToInt("page");
         }
-        Page<Record> picture_0 = ps.getPicturesByType(0, 6, pageNum);
-        if (0 == picture_0.getList().size() && 0 != picture_0.getTotalRow()) {
+        Page<Record> pictures;
+        if (null == getParaToInt("type")) {
+            pictures=ps.getAllPictures(6,pageNum);
+        } else {
+            int type=getParaToInt("type");
+            setAttr("type", type);
+            pictures=ps.getPicturesByType(type, 6, pageNum);
+        }
+        if (0 == pictures.getList().size() && 0 != pictures.getTotalRow()) {
             renderError(404);
         }
-        setAttr("picture_0", picture_0);
+        List<Record> types= ts.getPictureType();
+        setAttr("types", types);
+        setAttr("pictures", pictures);
         render("index.html");
     }
 
     @Before({GET.class})
     public void picInfo() {
         int picId = getParaToInt("id");
-        Record picture = ps.findPicturesById(picId);
+        Record picture = ps.findPicturesByIdWithType(picId);
         if (null == picture) {
             renderError(404);
         }
@@ -62,7 +73,7 @@ public class PictureController extends BaseController {
         UploadFile uploadFile = getFile("file", "/pictures/", maxSize);
         String title = getPara("title");
         String introduction = getPara("introduction");
-        int imgType = 0;
+        int imgType = getParaToInt("type");;
         File file = uploadFile.getFile();
         String type = file.getName().substring(file.getName().lastIndexOf('.'));
         String uuid = StrKit.getRandomUUID();

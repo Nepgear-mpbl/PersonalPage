@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 #set(title="图片")
 #set(bgImg="bgImage/bg1.jpg")
+#if(type)
+#set(curType="&type="+type.toString())
+#else
+#set(curType="")
+#end
 #@layout()
 
 #define body()
@@ -8,14 +13,27 @@
     <p>图片</p>
     <p style="font-size: 50%;color: #aaaaaa;">奇怪的个人收藏</p>
 </div>
+<div style="padding: 10px">
+    <label for="picture-select">分类</label>
+    <select id="picture-select">
+        <option value="0">全部</option>
+        #for(_type:types)
+        #if(type==_type.id)
+        <option selected value="#(_type.id)">#(_type.type_name)</option>
+        #else
+        <option value="#(_type.id)">#(_type.type_name)</option>
+        #end
+        #end
+    </select>
+</div>
 <div id="pic-show-type0">
-    #if(!picture_0.list)
+    #if(!pictures.list)
     <div style="text-align: center">
         当前分类暂时没有图片
     </div>
     #else
     <div class="waterfall">
-        #for(pic:picture_0.list)
+        #for(pic:pictures.list)
         <div class=" item">
             <div class="am-panel am-panel-default">
                 <img class="am-img-responsive" src="/img?fileName=#(pic.thumbnail_path)"/>
@@ -31,63 +49,61 @@
         #end
     </div>
     <div style="clear: both">
-        #set(pNum=picture_0.totalRow%picture_0.pageSize==0?picture_0.totalRow/picture_0.pageSize:picture_0.totalRow/picture_0.pageSize+1)
+        #set(pNum=pictures.totalRow%pictures.pageSize==0?pictures.totalRow/pictures.pageSize:pictures.totalRow/pictures.pageSize+1)
         #if(pNum==1)
         #elseif(pNum<=4)
         <ul class="am-pagination" style="text-align: center">
-            #if(picture_0.pageNumber==1)
+            #if(pictures.pageNumber==1)
             <li class="am-disabled"><a href="#">&laquo;</a></li>
             #else
-            <li><a href="/picture/#(picture_0.pageNumber-1)">&laquo;</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber-1)#(curType)">&laquo;</a></li>
             #end
-            #for(i=0;i
-            <pNum
-                    ;i++)
-                    #if(for.index+1==picture_0.pageNumber)
+            #for(i=0;i<pNum;i++)
+            #if(for.index+1==pictures.pageNumber)
             <li class="am-active"><a href="">#(for.index+1)</a></li>
             #else
-            <li><a href="/picture/#(for.index+1)">#(for.index+1)</a></li>
+            <li><a href="/picture?page=#(for.index+1)#(curType)">#(for.index+1)</a></li>
             #end
             #end
-            #if(picture_0.pageNumber==pNum)
+            #if(pictures.pageNumber==pNum)
             <li class="am-disabled"><a href="#">&raquo;</a></li>
             #else
-            <li><a href="/picture/#(picture_0.pageNumber+1)">&raquo;</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber+1)#(curType)">&raquo;</a></li>
             #end
         </ul>
         #else
         <ul class="am-pagination" style="text-align: center">
-            #if(picture_0.pageNumber==1)
+            #if(pictures.pageNumber==1)
             <li class="am-disabled"><a href="#">&laquo;</a></li>
             #else
-            <li><a href="/picture/#(picture_0.pageNumber-1)">&laquo;</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber-1)#(curType)">&laquo;</a></li>
             #end
-            #if(picture_0.pageNumber==1)
+            #if(pictures.pageNumber==1)
             #for(i=0;i<4;i++)
-            #if(for.index+1==picture_0.pageNumber)
+            #if(for.index+1==pictures.pageNumber)
             <li class="am-active"><a href="">#(for.index+1)</a></li>
             #else
-            <li><a href="/picture/#(for.index+1)">#(for.index+1)</a></li>
+            <li><a href="/picture?page=#(for.index+1)#(curType)">#(for.index+1)</a></li>
             #end
             #end
-            #elseif(picture_0.pageNumber+2>=pNum)
+            #elseif(pictures.pageNumber+2>=pNum)
             #for(i=0;i<4;i++)
-            #if(pNum-3+for.index==picture_0.pageNumber)
+            #if(pNum-3+for.index==pictures.pageNumber)
             <li class="am-active"><a href="">#(pNum-3+for.index)</a></li>
             #else
-            <li><a href="/picture/#(pNum-3+for.index)">#(pNum-3+for.index)</a></li>
+            <li><a href="/picture?page=#(pNum-3+for.index)#(curType)">#(pNum-3+for.index)</a></li>
             #end
             #end
             #else
-            <li><a href="/picture/#(picture_0.pageNumber-1)">#(picture_0.pageNumber-1)</a></li>
-            <li class="am-active"><a href="">#(picture_0.pageNumber)</a></li>
-            <li><a href="/picture/#(picture_0.pageNumber+1)">#(picture_0.pageNumber+1)</a></li>
-            <li><a href="/picture/#(picture_0.pageNumber+2)">#(picture_0.pageNumber+2)</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber-1)#(curType)">#(pictures.pageNumber-1)</a></li>
+            <li class="am-active"><a href="">#(pictures.pageNumber)</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber+1)#(curType)">#(pictures.pageNumber+1)</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber+2)#(curType)">#(pictures.pageNumber+2)</a></li>
             #end
-            #if(picture_0.pageNumber==pNum)
+            #if(pictures.pageNumber==pNum)
             <li class="am-disabled"><a href="#">&raquo;</a></li>
             #else
-            <li><a href="/picture/#(picture_0.pageNumber+1)">&raquo;</a></li>
+            <li><a href="/picture?page=#(pictures.pageNumber+1)#(curType)">&raquo;</a></li>
             #end
         </ul>
         #end
@@ -122,6 +138,14 @@
                                 <label for="title-input">标题：</label>
                                 <input type="text" name="title" id="title-input" minlength="1"
                                        placeholder="输入标题（至少 1 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="type-input">分类</label>
+                                <select id="type-input" name="type">
+                                    #for(_type:types)
+                                    <option value="#(_type.id)">#(_type.type_name)</option>
+                                    #end
+                                </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="intro-input">介绍：</label>

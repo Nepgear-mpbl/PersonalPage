@@ -14,6 +14,14 @@
                        placeholder="输入标题（至少 1 个字符）" required/>
             </div>
             <div class="am-form-group">
+                <label for="type-input">分类</label>
+                <select id="type-input">
+                    #for(_type:types)
+                    <option value="#(_type.id)">#(_type.type_name)</option>
+                    #end
+                </select>
+            </div>
+            <div class="am-form-group">
                 <label for="abstract-input">摘要（可选）</label>
                 <textarea class="" rows="3" id="abstract-input"></textarea>
             </div>
