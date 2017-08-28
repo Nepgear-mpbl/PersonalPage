@@ -18,6 +18,7 @@ SELECT
  *
 FROM p_picture
 WHERE `type` = #para(0)
+ORDER BY  `upload_time` DESC
 #end
 
 
@@ -25,4 +26,5 @@ WHERE `type` = #para(0)
 SELECT
  *
 FROM p_picture
+ORDER BY  `upload_time` DESC
 #end

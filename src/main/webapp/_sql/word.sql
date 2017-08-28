@@ -2,6 +2,7 @@
 SELECT
  *
 FROM p_word
+ORDER BY  `word_time` DESC
 #end
 
 #sql("findById")

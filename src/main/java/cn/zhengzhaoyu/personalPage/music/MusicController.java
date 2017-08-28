@@ -1,4 +1,4 @@
-package music;
+package cn.zhengzhaoyu.personalPage.music;
 
 import cn.zhengzhaoyu.personalPage.common.controller.BaseController;
 

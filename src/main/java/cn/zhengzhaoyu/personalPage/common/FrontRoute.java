@@ -4,12 +4,11 @@ import cn.zhengzhaoyu.personalPage.article.ArticleController;
 import cn.zhengzhaoyu.personalPage.comment.CommentController;
 import cn.zhengzhaoyu.personalPage.common.controller.GuestController;
 import cn.zhengzhaoyu.personalPage.common.controller.ImgController;
-import cn.zhengzhaoyu.personalPage.common.model.Word;
 import cn.zhengzhaoyu.personalPage.index.IndexController;
 import cn.zhengzhaoyu.personalPage.picture.PictureController;
 import cn.zhengzhaoyu.personalPage.word.WordController;
 import com.jfinal.config.Routes;
-import music.MusicController;
+import cn.zhengzhaoyu.personalPage.music.MusicController;
 
 /**
  * Created by Nepge on 2017/7/18.

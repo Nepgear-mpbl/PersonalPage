@@ -11,4 +11,5 @@ SELECT
 FROM p_comment
 WHERE `type` = #para(0)
 and `parent` = #para(1)
+ORDER BY  `comment_time` DESC
 #end

@@ -18,10 +18,12 @@ SELECT
  *
 FROM p_article
 WHERE `type` = #para(0)
+ORDER BY  `article_time` DESC
 #end
 
 #sql("getAll")
 SELECT
  *
 FROM p_article
+ORDER BY  `article_time` DESC
 #end
