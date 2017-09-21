@@ -77,12 +77,12 @@ public class PictureController extends BaseController {
         File file = uploadFile.getFile();
         String type = file.getName().substring(file.getName().lastIndexOf('.'));
         String uuid = StrKit.getRandomUUID();
-        String AbsPath = file.getAbsolutePath();
-        String path = AbsPath.substring(0, AbsPath.lastIndexOf('\\')) + '\\' + uuid + type;
+        String AbsPath = file.getAbsolutePath().replaceAll("\\\\","/");
+        String path = AbsPath.substring(0, AbsPath.lastIndexOf('/')) + '/' + uuid + type;
         if (file.renameTo(new File(path))) {
             Thumbnails.of(path)
                     .size(650, 1000)
-                    .toFile(AbsPath.substring(0, AbsPath.lastIndexOf('\\')) + "\\thumbnails\\" + uuid + type);
+                    .toFile(AbsPath.substring(0, AbsPath.lastIndexOf('/')) + "/thumbnails/" + uuid + type);
             ls.addLog("Picture add.", getIp());
             renderJson(ps.addPicture(uuid, type, title, introduction, imgType));
         } else {

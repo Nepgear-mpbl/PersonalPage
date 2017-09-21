@@ -42,9 +42,10 @@ $(document).ready(function () {
                 layer.msg(retJson.message.toString());
                 setTimeout('location.reload()',1000);
             },
-            error: function () {
+            error: function (retJson) {
                 $('progress').hide();
-                layer.msg("上传失败");
+                console.log(retJson);
+                layer.msg(retJson.message);
             },
             data: formData,
             cache: false,

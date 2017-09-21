@@ -50,7 +50,7 @@ public class JsoupFilter {
         String text = w.getWordText();
         w.setWordText(getText(text));
         String name = w.getWordName();
-        w.setWordName(name);
+        w.setWordName(getText(name));
     }
 
     /**
