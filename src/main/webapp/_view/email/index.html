@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+#set(title="邮件订阅")
+#set(bgImg="bgImage/bg1.jpg")
+#@layout()
+
+#define body()
+<div>
+    <div style="border:2px solid #e5e5e5;margin: 35px 5px;padding:5px">
+        <h2 style="margin-top:-2rem;text-align: center"><span
+                style="background-color: #fff;padding: 0 1.5rem;">邮件订阅</span></h2>
+        <p>虽然更新的很慢而且会鸽，但如果就算这样也不介意的话可以使用邮箱订阅功能==</p>
+        <p>每次随笔更新时会向订阅的邮箱发送一封邮件</p>
+        <p>回邮件当然没用（滑稽）</p>
+        <button
+                type="button"
+                class="am-btn am-btn-default"
+                id="email-btn">
+            订订订
+        </button>
+    </div>
+    <br>
+    #if(guest&&guest.status)
+    <div id="email">
+        #if(!emailList)
+        <div style="margin: auto;text-align: center;padding-top:30px">orz没有订阅</div>
+        #else
+        <div style="margin: auto;text-align: center;padding-top:30px">所有订阅</div>
+        #for(email:emailList)
+        <div>
+            #(email.address)
+            <a href="/email/removeEmail/#(email.id)" style="float: right;font-size: 100%;color: #aaaaaa"
+               class="remove">删除</a>
+        </div>
+    </div>
+    #end
+    #end
+</div>
+#end
+<div style="color: white;height: 20px"></div>
+#end
+
+#define js()
+<script src="/assets/js/email.js"></script>
+#end

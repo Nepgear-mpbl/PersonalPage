@@ -18,3 +18,7 @@
 #include("type.sql")
 #end
 
+#namespace("email")
+#include("email.sql")
+#end
+

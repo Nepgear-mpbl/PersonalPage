@@ -4,6 +4,7 @@ import cn.zhengzhaoyu.personalPage.article.ArticleController;
 import cn.zhengzhaoyu.personalPage.comment.CommentController;
 import cn.zhengzhaoyu.personalPage.common.controller.GuestController;
 import cn.zhengzhaoyu.personalPage.common.controller.ImgController;
+import cn.zhengzhaoyu.personalPage.email.EmailController;
 import cn.zhengzhaoyu.personalPage.index.IndexController;
 import cn.zhengzhaoyu.personalPage.picture.PictureController;
 import cn.zhengzhaoyu.personalPage.word.WordController;
@@ -29,5 +30,6 @@ public class FrontRoute extends Routes {
         add("article", ArticleController.class);
         add("word", WordController.class);
         add("music", MusicController.class);
+        add("email", EmailController.class);
     }
 }

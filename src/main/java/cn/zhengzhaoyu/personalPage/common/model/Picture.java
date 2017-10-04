@@ -7,5 +7,5 @@ import cn.zhengzhaoyu.personalPage.common.model.base.BasePicture;
  */
 @SuppressWarnings("serial")
 public class Picture extends BasePicture<Picture> {
-	
+
 }

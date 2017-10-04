@@ -12,5 +12,5 @@ public class Word extends BaseWord<Word> {
     protected void filter(int filterBy) {
         JsoupFilter.filterWord(this);
     }
-	
+
 }

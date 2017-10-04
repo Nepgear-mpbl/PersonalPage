@@ -7,5 +7,5 @@ import cn.zhengzhaoyu.personalPage.common.model.base.BasePictureType;
  */
 @SuppressWarnings("serial")
 public class PictureType extends BasePictureType<PictureType> {
-	
+
 }

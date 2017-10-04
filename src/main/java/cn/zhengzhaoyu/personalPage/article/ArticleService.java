@@ -3,6 +3,7 @@ package cn.zhengzhaoyu.personalPage.article;
 import cn.zhengzhaoyu.personalPage.comment.CommentService;
 import cn.zhengzhaoyu.personalPage.common.model.Article;
 import cn.zhengzhaoyu.personalPage.common.model.Comment;
+import cn.zhengzhaoyu.personalPage.email.EmailService;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -20,12 +21,14 @@ import java.util.List;
 public class ArticleService {
     public static final ArticleService me = new ArticleService();
     public static final CommentService cs = new CommentService();
+    public static final EmailService es = new EmailService();
     private static final Article articleDao = new Article().dao();
 
     public Ret addArticle(int type, String title, String text, String _abstract) {
         Article article = new Article();
         article.setArticleAbstract(_abstract).setArticleText(text).setTitle(title).setType(type);
         if (article.save()) {
+            es.sendEmails(title);
             return Ret.by("status", true).set("message", "上传成功");
         } else {
             return Ret.by("status", false).set("message", "数据库错误");

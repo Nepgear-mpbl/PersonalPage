@@ -9,7 +9,7 @@ public class CommentController extends BaseController {
     private static final CommentService cs = new CommentService();
     private static final LogService ls = new LogService();
 
-    @Before({POST.class})
+    @Before({POST.class,CommentValidator.class})
     public void addComment() {
         int type = getParaToInt(0);
         int parentId = getParaToInt(1);

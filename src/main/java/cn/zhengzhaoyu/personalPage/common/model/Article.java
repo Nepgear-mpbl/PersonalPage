@@ -7,5 +7,5 @@ import cn.zhengzhaoyu.personalPage.common.model.base.BaseArticle;
  */
 @SuppressWarnings("serial")
 public class Article extends BaseArticle<Article> {
-	
+
 }
